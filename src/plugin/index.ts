@@ -1,0 +1,5 @@
+export { mermaidPlugin } from './mermaidPlugin'
+export { parseFenceInfo } from './parseFenceInfo'
+export { createDiagramId } from './createDiagramId'
+export { encodeCode } from './encodeCode'
+export type { MermaidFenceMeta, MermaidPluginOptions } from '../shared/types'

@@ -1,0 +1,70 @@
+{
+  "name": "@aether-labs/vitepress-mermaid",
+  "version": "0.1.0",
+  "description": "Zero-config Mermaid support for VitePress.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "aether-vitepress-mermaid": "./dist/cli/index.mjs"
+  },
+  "sideEffects": [
+    "./dist/style.css",
+    "./dist/runtime/index.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./auto": {
+      "types": "./dist/auto/index.d.ts",
+      "import": "./dist/auto/index.mjs"
+    },
+    "./plugin": {
+      "types": "./dist/plugin/index.d.ts",
+      "import": "./dist/plugin/index.mjs"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.mjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "dev": "vitepress dev playground/docs",
+    "build": "pnpm build:ts && pnpm build:css",
+    "build:ts": "tsup",
+    "build:css": "mkdir -p dist && cp src/styles/index.css dist/style.css",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "peerDependencies": {
+    "vitepress": "^1.0.0 || ^2.0.0-alpha.0",
+    "vue": "^3.4.0 || ^3.5.0",
+    "mermaid": "^10.0.0 || ^11.0.0"
+  },
+  "dependencies": {
+    "magic-string": "^0.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@vitejs/plugin-vue": "latest",
+    "@vue/test-utils": "latest",
+    "eslint": "latest",
+    "markdown-it": "latest",
+    "prettier": "latest",
+    "tsup": "latest",
+    "typescript": "latest",
+    "unplugin-vue": "latest",
+    "vitepress": "latest",
+    "vitest": "latest",
+    "vue": "latest",
+    "vue-tsc": "latest"
+  }
+}
