@@ -5,3 +5,4 @@ coverage
 *.log
 playground/docs/.vitepress/cache
 playground/docs/.vitepress/dist
+.npmrc

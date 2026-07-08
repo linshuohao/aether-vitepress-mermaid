@@ -1,6 +1,6 @@
 {
   "name": "@aether-labs/vitepress-mermaid",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Zero-config Mermaid support for VitePress.",
   "type": "module",
   "license": "MIT",
@@ -18,7 +18,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/auto/index.js"
+      "import": "./dist/index.js"
     },
     "./plugin": {
       "types": "./dist/plugin/index.d.ts",
