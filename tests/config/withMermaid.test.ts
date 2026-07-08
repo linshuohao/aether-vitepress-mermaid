@@ -38,4 +38,19 @@ describe('withMermaid', () => {
     const html = md.render('```mermaid\nflowchart TD\n  A --> B\n```\n')
     expect(html).toContain('<CustomDiagram')
   })
+
+  it('registers a Vite plugin that auto-installs the Mermaid runtime', () => {
+    const config = withMermaid({})
+    const plugins = config.vite!.plugins!
+
+    expect(plugins.length).toBeGreaterThan(0)
+    expect(plugins.some((plugin) => plugin && typeof plugin === 'object' && 'name' in plugin && plugin.name === 'aether-vitepress-mermaid')).toBe(true)
+  })
+
+  it('preserves existing vite plugins from the user config', () => {
+    const userPlugin = { name: 'user-plugin' }
+    const config = withMermaid({ vite: { plugins: [userPlugin] } })
+
+    expect(config.vite!.plugins![0]).toBe(userPlugin)
+  })
 })

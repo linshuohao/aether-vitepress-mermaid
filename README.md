@@ -31,6 +31,8 @@ flowchart TD
 
 ## Manual Setup
 
+Only `withMermaid` in config is required for Mermaid to work. The wrapper also registers the `MermaidDiagram` Vue component automatically.
+
 `.vitepress/config.ts`:
 
 ```ts
@@ -44,7 +46,7 @@ export default withMermaid(
 )
 ```
 
-`.vitepress/theme/index.ts`:
+`.vitepress/theme/index.ts` (optional — only needed if you want explicit theme-level control):
 
 ```ts
 import DefaultTheme from 'vitepress/theme'
@@ -52,6 +54,8 @@ import { withMermaidTheme } from '@aether-labs/vitepress-mermaid/runtime'
 
 export default withMermaidTheme(DefaultTheme)
 ```
+
+`withMermaidTheme` is optional when you already use `withMermaid` in config. Use it if you prefer wiring the runtime in theme, or if you need to combine it with other `enhanceApp` customizations.
 
 ## Options
 
@@ -67,7 +71,21 @@ withMermaid(defineConfig({}), {
 })
 ```
 
-Runtime options are passed through the theme layer:
+Runtime options can be passed through `withMermaid` (recommended) or the theme layer:
+
+```ts
+withMermaid(defineConfig({}), {
+  runtime: {
+    securityLevel: 'strict',
+    theme: {
+      light: 'default',
+      dark: 'dark'
+    }
+  }
+})
+```
+
+Or via theme:
 
 ```ts
 export default withMermaidTheme(DefaultTheme, {
@@ -98,7 +116,11 @@ Supported in v0.1 skeleton:
 
 ### Why not work after install only?
 
-VitePress does not auto-discover npm plugins. Mermaid support must be wired into both the Markdown compilation chain and the theme/runtime app enhancement chain.
+VitePress does not auto-discover npm plugins. Run `pnpm exec aether-vitepress-mermaid init`, or manually wrap your config with `withMermaid`.
+
+### Why do I see "Failed to resolve component: MermaidDiagram"?
+
+This means the Markdown plugin is active (mermaid fences are being converted), but the Vue component was not registered. Ensure your `.vitepress/config.ts` uses `withMermaid(...)`. If you are on an older version, upgrade to the latest package — or add `withMermaidTheme` in `.vitepress/theme/index.ts` as shown in Manual Setup.
 
 ### Why client-first?
 
